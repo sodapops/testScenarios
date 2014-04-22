@@ -1,0 +1,92 @@
+<!doctype html>
+<html lang="en" ng-app="toDoApp">
+<head>
+    <meta charset="utf-8">
+    <title>Product Test Matrix</title>
+    <script src="../angular/angular.js"></script>
+    <script src="../bower_components/jquery/jquery.js"></script>
+    <script src="../bower_components/bootstrap/dist/js/bootstrap.js"></script>
+    <script src="js/controllers.js"></script>
+    <link rel="stylesheet" href="../bower_components/bootstrap/dist/css/bootstrap.css">
+    <link rel="stylesheet" href="../bower_components/jquery/jquery.js">
+</head>
+<body ng-controller="TaskListCtrl">
+
+    <div class="jumbotron text-center">
+        <h2>Test Scenarios<span class="label label-info">{{toDoTasks.length}}</span></h2>
+    </div>
+
+        <div class="panel panel-success">
+            <div class="panel-heading">Service Connect</div>
+            <div class="panel-body">
+                <table padding="5" margin="5" border=1>
+                    <head>
+                        <tr>
+                            <th>&nbsp;</th>
+                            <th ng-repeat="header in headers">{{header.headerName}}</th>
+                        </tr>
+                    </head>
+                    <body>
+                        <tr ng-repeat="platform in platforms">
+                            <td>
+                                {{platform.platformName}}
+                            </td>
+                            <td ng-repeat="scenario in platform.scenarios">
+                                <div class="thumbnail">
+                                    <div class="caption">
+                                        <h3>Scenario</h3>
+                                        <p>Tester: {{scenario.testerName}}</p>
+                                        <div class="btn-group">
+                                            <button type="button" class="btn btn-{{scenario.statusClass}} dropdown-toggle" data-toggle="dropdown">
+                                            {{scenario.statusName}} <span class="caret"></span>
+                                            </button>
+                                            <ul class="dropdown-menu" role="menu">
+                                            <li ng-repeat="action in scenario.actions">
+                                                <a href="#" ng-click="btnClicked(scenario, action)">{{action.actionName}}</a>
+                                            </li>
+                                            <li class="divider"></li>
+                                            <li><a href="#">Separated link</a></li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                    </body>
+                </table>
+            </div>
+        </div>
+
+    <!--
+    <div class="span2">
+        Search: <input ng-model="taskFilter">
+        Sort by:
+        <select ng-model="taskOrder">
+            <option value="taskName">Alphabetical</option>
+            <option value="id">Newest</option>
+        </select>
+    </div>
+
+    <div class="span10">
+        <div class="panel panel-danger">
+            <div class="panel-heading">Tasks left to do</div>
+            <div class="panel-body">
+                <div class="checkbox" ng-repeat="task in toDoTasks | filter:taskFilter | orderBy:taskOrder">
+                    <input type="checkbox" ng-click="deleteToDo($index)">{{task.taskName}}</input>
+                </div>
+            </div>
+        </div>
+
+        <div class="panel panel-success">
+            <div class="panel-heading">Tasks already done</div>
+            <div class="panel-body">
+                <div class="checkbox" ng-repeat="task in doneTasks">
+                    <input type="checkbox" checked ng-click="addToDo($index)">{{task.taskName}}</input>
+                </div>
+            </div>
+        </div>
+    </div>
+-->
+
+</body>
+</html>
