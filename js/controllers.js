@@ -16,6 +16,21 @@ toDoApp.controller('TaskListCtrl', function ($scope, $http, $window) {
             "platformName": "Win7 - IE9",
             "scenarios": [
                 {
+                    "id": 0,
+                    "statusClass": "info",
+                    "statusName": "Available",
+                    "testerName": "",
+                    "actions": [
+                        {"actionName": "Available", "actionFn": "setAvailable", "actionClass": "info"},
+                        {"actionName": "In-Progress", "actionFn": "setInProgress", "actionClass": "danger"},
+                        {"actionName": "Complete", "actionFn": "setComplete", "actionClass": "success"},
+                    ],
+                    "tasks": [
+                        {"taskName": "Available"},
+                    ]
+                },
+                {
+                    "id": 1,
                     "statusClass": "info",
                     "statusName": "Available",
                     "testerName": "",
@@ -26,16 +41,7 @@ toDoApp.controller('TaskListCtrl', function ($scope, $http, $window) {
                     ]
                 },
                 {
-                    "statusClass": "info",
-                    "statusName": "Available",
-                    "testerName": "",
-                    "actions": [
-                        {"actionName": "Available", "actionFn": "setAvailable", "actionClass": "info"},
-                        {"actionName": "In-Progress", "actionFn": "setInProgress", "actionClass": "danger"},
-                        {"actionName": "Complete", "actionFn": "setComplete", "actionClass": "success"},
-                    ]
-                },
-                {
+                    "id": 2,
                     "statusClass": "info",
                     "statusName": "Available",
                     "testerName": "",
@@ -63,6 +69,12 @@ toDoApp.controller('TaskListCtrl', function ($scope, $http, $window) {
         //$scope.platforms[0].scenarios[id].statusClass = action.actionClass;
         //$scope.platforms[0].scenarios[id].statusName = action.actionName;
     }
+
+    $scope.showTasks = function(scenario) {
+        console.log(scenario);
+        $('#myModal' + scenario.id).modal({show: true});
+    }
+
     /*
     $scope.init = function() {
             console.log('in init'); // shows in unit test too !!
