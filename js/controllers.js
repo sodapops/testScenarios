@@ -1,5 +1,11 @@
 'use strict';
 
+function pageInit() {
+    //console.log('web page inited');
+    //var $scope = angular.element('body').scope();
+    //$scope.init();
+}
+
 var toDoApp = angular.module('toDoApp', []);
 
 toDoApp.controller('TaskListCtrl', function ($scope, $http, $window) {
@@ -20,13 +26,18 @@ toDoApp.controller('TaskListCtrl', function ($scope, $http, $window) {
                     "statusClass": "info",
                     "statusName": "Available",
                     "testerName": "",
+                    "totalTasks": 4,
+                    "checkedTasks": 2,
                     "actions": [
                         {"actionName": "Available", "actionFn": "setAvailable", "actionClass": "info"},
                         {"actionName": "In-Progress", "actionFn": "setInProgress", "actionClass": "danger"},
                         {"actionName": "Complete", "actionFn": "setComplete", "actionClass": "success"},
                     ],
                     "tasks": [
-                        {"taskName": "Available"},
+                        {"taskName": "Need Assistance", "selected": true},
+                        {"taskName": "Knowledge Search", "selected": false},
+                        {"taskName": "Community", "selected": true},
+                        {"taskName": "Chat", "selected": false}
                     ]
                 },
                 {
@@ -34,10 +45,18 @@ toDoApp.controller('TaskListCtrl', function ($scope, $http, $window) {
                     "statusClass": "info",
                     "statusName": "Available",
                     "testerName": "",
+                    "totalTasks": 4,
+                    "checkedTasks": 2,
                     "actions": [
                         {"actionName": "Available", "actionFn": "setAvailable", "actionClass": "info"},
                         {"actionName": "In-Progress", "actionFn": "setInProgress", "actionClass": "danger"},
                         {"actionName": "Complete", "actionFn": "setComplete", "actionClass": "success"},
+                    ],
+                    "tasks": [
+                        {"taskName": "Need Assistance", "selected": true},
+                        {"taskName": "Knowledge Search", "selected": false},
+                        {"taskName": "Community", "selected": true},
+                        {"taskName": "Chat", "selected": false}
                     ]
                 },
                 {
@@ -45,19 +64,38 @@ toDoApp.controller('TaskListCtrl', function ($scope, $http, $window) {
                     "statusClass": "info",
                     "statusName": "Available",
                     "testerName": "",
+                    "totalTasks": 4,
+                    "checkedTasks": 2,
                     "actions": [
                         {"actionName": "Available", "actionFn": "setAvailable", "actionClass": "info"},
                         {"actionName": "In-Progress", "actionFn": "setInProgress", "actionClass": "danger"},
                         {"actionName": "Complete", "actionFn": "setComplete", "actionClass": "success"},
+                    ],
+                    "tasks": [
+                        {"taskName": "Need Assistance", "selected": true},
+                        {"taskName": "Knowledge Search", "selected": false},
+                        {"taskName": "Community", "selected": true},
+                        {"taskName": "Chat", "selected": false}
                     ]
                 },
             ]
         },
     ];
 
+    $scope.init = function() {
+        var index, scenario, scenarios;
+        console.log('init');
+        scenarios = $scope.platforms[0].scenarios
+        for (index = 0; index < scenarios.length; index++) {
+            scenario = scenarios[index];
+            console.log(scenario);
+            $('#myProgress' + scenario.id).width(100*scenario.checkedTasks/scenario.totalTasks);
+        }
+    }
+
     $scope.btnClicked = function(scenario, action) {
-        console.log(scenario);
-        console.log(action);
+        //console.log(scenario);
+        //console.log(action);
         scenario.statusClass = action.actionClass;
         scenario.statusName = action.actionName;
         if (action.actionName == "Available") {
@@ -71,10 +109,21 @@ toDoApp.controller('TaskListCtrl', function ($scope, $http, $window) {
     }
 
     $scope.showTasks = function(scenario) {
-        console.log(scenario);
+        //console.log(scenario);
         $('#myModal' + scenario.id).modal({show: true});
     }
 
+    $scope.taskChecked = function(scenario, task, checked) {
+        var taskIndex, totalTasks, checkedTasks;
+
+        if (task.selected) {
+            scenario.checkedTasks = scenario.checkedTasks - 1;
+        }
+        else {
+            scenario.checkedTasks = scenario.checkedTasks + 1;
+        }
+        //$('#myProgress' + scenario.id).width(100*scenario.checkedTasks/scenario.totalTasks);
+    }
     /*
     $scope.init = function() {
             console.log('in init'); // shows in unit test too !!
@@ -99,7 +148,8 @@ toDoApp.controller('TaskListCtrl', function ($scope, $http, $window) {
         $scope.toDoTasks.splice(-1, 0, $scope.doneTasks[id]);
         $scope.doneTasks.splice(id,1);
     }
-
-    $scope.init();
     */
+
+    //$scope.init();
+
 });
