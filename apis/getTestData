@@ -1,0 +1,230 @@
+{
+    "productTestMatrix": {
+        "products": [
+            {
+                "id": 0,
+                "productName": "Service Connect SX075B",
+                "totalTasks": 24,
+                "checkedTasks": 12,
+                "platforms": [
+                    {
+                        "platformId": 0,
+                        "ipAddress": "139.126.195.116", 
+                        "platformName": "Win7 - IE9",
+                        "scenarios": [
+                            {
+                                "scenarioId": 0,
+                                "statusClass": "info",
+                                "statusName": "Available",
+                                "testerName": "",
+                                "totalTasks": 4,
+                                "checkedTasks": 1,
+                                "columnName": "user1",
+                                "tasks": [
+                                    {"taskName": "Need Assistance", "selected": true},
+                                    {"taskName": "Knowledge Search", "selected": false},
+                                    {"taskName": "Community", "selected": false},
+                                    {"taskName": "Chat", "selected": false}
+                                ]
+                            },
+                            {
+                                "scenarioId": 1,
+                                "statusClass": "info",
+                                "statusName": "Available",
+                                "testerName": "",
+                                "totalTasks": 4,
+                                "checkedTasks": 2,
+                                "columnName": "admin1",
+                                "tasks": [
+                                    {"taskName": "Need Assistance", "selected": true},
+                                    {"taskName": "Knowledge Search", "selected": false},
+                                    {"taskName": "Community", "selected": true},
+                                    {"taskName": "Chat", "selected": false}
+                                ]
+                            },
+                            {
+                                "scenarioId": 2,
+                                "statusClass": "info",
+                                "statusName": "Available",
+                                "testerName": "",
+                                "totalTasks": 4,
+                                "checkedTasks": 3,
+                                "columnName": "french1",
+                                "tasks": [
+                                    {"taskName": "Need Assistance", "selected": true},
+                                    {"taskName": "Knowledge Search", "selected": false},
+                                    {"taskName": "Community", "selected": true},
+                                    {"taskName": "Chat", "selected": true}
+                                ]
+                            }
+                        ]
+                    },
+                    {
+                        "platformId": 1,
+                        "ipAddress": "139.126.195.120", 
+                        "platformName": "Win8 - IE10",
+                        "scenarios": [
+                            {
+                                "scenarioId": 0,
+                                "statusClass": "info",
+                                "statusName": "Available",
+                                "testerName": "",
+                                "totalTasks": 4,
+                                "checkedTasks": 1,
+                                "columnName": "user1",
+                                "tasks": [
+                                    {"taskName": "Need Assistance", "selected": true},
+                                    {"taskName": "Knowledge Search", "selected": false},
+                                    {"taskName": "Community", "selected": false},
+                                    {"taskName": "Chat", "selected": false}
+                                ]
+                            },
+                            {
+                                "scenarioId": 1,
+                                "statusClass": "info",
+                                "statusName": "Available",
+                                "testerName": "",
+                                "totalTasks": 4,
+                                "checkedTasks": 2,
+                                "columnName": "admin1",
+                                "tasks": [
+                                    {"taskName": "Need Assistance", "selected": true},
+                                    {"taskName": "Knowledge Search", "selected": false},
+                                    {"taskName": "Community", "selected": true},
+                                    {"taskName": "Chat", "selected": false}
+                                ]
+                            },
+                            {
+                                "scenarioId": 2,
+                                "statusClass": "info",
+                                "statusName": "Available",
+                                "testerName": "",
+                                "totalTasks": 4,
+                                "checkedTasks": 3,
+                                "columnName": "french1",
+                                "tasks": [
+                                    {"taskName": "Need Assistance", "selected": true},
+                                    {"taskName": "Knowledge Search", "selected": false},
+                                    {"taskName": "Community", "selected": true},
+                                    {"taskName": "Chat", "selected": true}
+                                ]
+                            }
+                        ]
+                    }
+                ]
+            },
+            {
+                "id": 1,
+                "productName": "Service Connect Mobile",
+                "totalTasks": 24,
+                "checkedTasks": 12,
+                "platforms": [
+                    {
+                        "platformId": 0,
+                        "ipAddress": "Portrait", 
+                        "platformName": "iPhone",
+                        "scenarios": [
+                            {
+                                "scenarioId": 0,
+                                "statusClass": "info",
+                                "statusName": "Available",
+                                "testerName": "",
+                                "totalTasks": 4,
+                                "checkedTasks": 1,
+                                "columnName": "user1",
+                                "tasks": [
+                                    {"taskName": "Case View and Create", "selected": true},
+                                    {"taskName": "Knowledge Search", "selected": false},
+                                    {"taskName": "Concierge", "selected": false},
+                                    {"taskName": "Alert View and Create", "selected": false}
+                                ]
+                            },
+                            {
+                                "scenarioId": 1,
+                                "statusClass": "info",
+                                "statusName": "Available",
+                                "testerName": "",
+                                "totalTasks": 4,
+                                "checkedTasks": 2,
+                                "columnName": "admin1",
+                                "tasks": [
+                                    {"taskName": "Case View and Create", "selected": true},
+                                    {"taskName": "Knowledge Search", "selected": false},
+                                    {"taskName": "Concierge", "selected": true},
+                                    {"taskName": "Alert View and Create", "selected": false}
+                                ]
+                            },
+                            {
+                                "scenarioId": 2,
+                                "statusClass": "info",
+                                "statusName": "Available",
+                                "testerName": "",
+                                "totalTasks": 4,
+                                "checkedTasks": 3,
+                                "columnName": "french1",
+                                "tasks": [
+                                    {"taskName": "Case View and Create", "selected": true},
+                                    {"taskName": "Knowledge Search", "selected": true},
+                                    {"taskName": "Concierge", "selected": true},
+                                    {"taskName": "Alert View and Create", "selected": false}
+                                ]
+                            }
+                        ]
+                    },
+                    {
+                        "platformId": 1,
+                        "ipAddress": "Portrait", 
+                        "platformName": "iPad",
+                        "scenarios": [
+                            {
+                                "scenarioId": 0,
+                                "statusClass": "info",
+                                "statusName": "Available",
+                                "testerName": "",
+                                "totalTasks": 4,
+                                "checkedTasks": 1,
+                                "columnName": "user1",
+                                "tasks": [
+                                    {"taskName": "Case View and Create", "selected": true},
+                                    {"taskName": "Knowledge Search", "selected": false},
+                                    {"taskName": "Concierge", "selected": false},
+                                    {"taskName": "Alert View and Create", "selected": false}
+                                ]
+                            },
+                            {
+                                "scenarioId": 1,
+                                "statusClass": "info",
+                                "statusName": "Available",
+                                "testerName": "",
+                                "totalTasks": 4,
+                                "checkedTasks": 2,
+                                "columnName": "admin1",
+                                "tasks": [
+                                    {"taskName": "Case View and Create", "selected": true},
+                                    {"taskName": "Knowledge Search", "selected": false},
+                                    {"taskName": "Concierge", "selected": true},
+                                    {"taskName": "Alert View and Create", "selected": false}
+                                ]
+                            },
+                            {
+                                "scenarioId": 2,
+                                "statusClass": "info",
+                                "statusName": "Available",
+                                "testerName": "",
+                                "totalTasks": 4,
+                                "checkedTasks": 3,
+                                "columnName": "french1",
+                                "tasks": [
+                                    {"taskName": "Case View and Create", "selected": true},
+                                    {"taskName": "Knowledge Search", "selected": true},
+                                    {"taskName": "Concierge", "selected": true},
+                                    {"taskName": "Alert View and Create", "selected": false}
+                                ]
+                            }
+                        ]
+                    }
+                ]
+            }
+        ]
+    }
+}

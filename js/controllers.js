@@ -10,76 +10,45 @@ var toDoApp = angular.module('toDoApp', []);
 
 toDoApp.controller('TaskListCtrl', function ($scope, $http, $window) {
     $scope.doneTasks = [{"taskName": "Done task", "id": 0, "ipAddress": "139.126.195.116"}];
+    $scope.showProductSelector = true;
+    $scope.showTesterSelector = false;
+    $scope.showTestMatrix = false;
+    $scope.selectedProductName = '';
+    $scope.selectedTesterName = '';
+
+    $http({method: 'GET', url: 'apis/getTestData'}).
+    success(function(data) {
+        var index;
+        $scope.productTestMatrix = data.productTestMatrix;
+        $scope.productsToTest = new Array();
+        for (index = 0; index < $scope.productTestMatrix.products.length; index++) {
+            $scope.productsToTest[index] = {
+                "productName": $scope.productTestMatrix.products[index].productName,
+                "productRef": $scope.productTestMatrix.products[index]
+            };
+        }
+    }).
+    error(function(data) {
+        console.log('get fail'); // shows in unit test too !!
+    });
+
+    $scope.selectedProduct = null;
+
+    $scope.productTesters = [
+        {"testerName": "Tim Jones"},
+        {"testerName": "Jack Click"},
+        {"testerName": "Jeff Engley"},
+        {"testerName": "Sudhir Moolky"}
+    ];
     $scope.headers = [
         {"headerName": "user1"},
         {"headerName": "admin1"},
         {"headerName": "french1"},
     ];
-    $scope.platforms = [
-        {
-            "id": 0,
-            "ipAddress": "139.126.195.116",
-            "platformName": "Win7 - IE9",
-            "scenarios": [
-                {
-                    "id": 0,
-                    "statusClass": "info",
-                    "statusName": "Available",
-                    "testerName": "",
-                    "totalTasks": 4,
-                    "checkedTasks": 2,
-                    "actions": [
-                        {"actionName": "Available", "actionFn": "setAvailable", "actionClass": "info"},
-                        {"actionName": "In-Progress", "actionFn": "setInProgress", "actionClass": "danger"},
-                        {"actionName": "Complete", "actionFn": "setComplete", "actionClass": "success"},
-                    ],
-                    "tasks": [
-                        {"taskName": "Need Assistance", "selected": true},
-                        {"taskName": "Knowledge Search", "selected": false},
-                        {"taskName": "Community", "selected": true},
-                        {"taskName": "Chat", "selected": false}
-                    ]
-                },
-                {
-                    "id": 1,
-                    "statusClass": "info",
-                    "statusName": "Available",
-                    "testerName": "",
-                    "totalTasks": 4,
-                    "checkedTasks": 2,
-                    "actions": [
-                        {"actionName": "Available", "actionFn": "setAvailable", "actionClass": "info"},
-                        {"actionName": "In-Progress", "actionFn": "setInProgress", "actionClass": "danger"},
-                        {"actionName": "Complete", "actionFn": "setComplete", "actionClass": "success"},
-                    ],
-                    "tasks": [
-                        {"taskName": "Need Assistance", "selected": true},
-                        {"taskName": "Knowledge Search", "selected": false},
-                        {"taskName": "Community", "selected": true},
-                        {"taskName": "Chat", "selected": false}
-                    ]
-                },
-                {
-                    "id": 2,
-                    "statusClass": "info",
-                    "statusName": "Available",
-                    "testerName": "",
-                    "totalTasks": 4,
-                    "checkedTasks": 2,
-                    "actions": [
-                        {"actionName": "Available", "actionFn": "setAvailable", "actionClass": "info"},
-                        {"actionName": "In-Progress", "actionFn": "setInProgress", "actionClass": "danger"},
-                        {"actionName": "Complete", "actionFn": "setComplete", "actionClass": "success"},
-                    ],
-                    "tasks": [
-                        {"taskName": "Need Assistance", "selected": true},
-                        {"taskName": "Knowledge Search", "selected": false},
-                        {"taskName": "Community", "selected": true},
-                        {"taskName": "Chat", "selected": false}
-                    ]
-                },
-            ]
-        },
+    $scope.actions = [
+        {"actionName": "Available", "actionFn": "setAvailable", "actionClass": "info"},
+        {"actionName": "In-Progress", "actionFn": "setInProgress", "actionClass": "danger"},
+        {"actionName": "Complete", "actionFn": "setComplete", "actionClass": "success"}
     ];
 
     $scope.init = function() {
@@ -93,34 +62,77 @@ toDoApp.controller('TaskListCtrl', function ($scope, $http, $window) {
         }
     }
 
-    $scope.btnClicked = function(scenario, action) {
-        //console.log(scenario);
-        //console.log(action);
+    $scope.btnStatusClicked = function(scenario, action) {
+        var taskIndex;
         scenario.statusClass = action.actionClass;
         scenario.statusName = action.actionName;
         if (action.actionName == "Available") {
             scenario.testerName = '';
+            $scope.selectedProduct.checkedTasks -= (scenario.checkedTasks);
+            scenario.checkedTasks = 0;
+            for (taskIndex = 0; taskIndex < scenario.tasks.length; taskIndex++) {
+                scenario.tasks[taskIndex].selected = false;
+            }
         }
         else {
-            scenario.testerName = 'Sudhir Moolky';
+            scenario.testerName = $scope.selectedTesterName;
         }
-        //$scope.platforms[0].scenarios[id].statusClass = action.actionClass;
-        //$scope.platforms[0].scenarios[id].statusName = action.actionName;
+        if (action.actionName == "Complete") {
+            $scope.selectedProduct.checkedTasks += (scenario.totalTasks - scenario.checkedTasks);
+            scenario.checkedTasks = scenario.totalTasks;
+            for (taskIndex = 0; taskIndex < scenario.tasks.length; taskIndex++) {
+                scenario.tasks[taskIndex].selected = true;
+            }
+        }
     }
 
-    $scope.showTasks = function(scenario) {
-        //console.log(scenario);
-        $('#myModal' + scenario.id).modal({show: true});
+    $scope.btnProductSelected = function(productToTest) {
+        $scope.selectedProductName = productToTest.productName;
+        $scope.showTesterSelector = true;
+        $scope.selectedProduct = productToTest.productRef;
+        console.log($scope.selectedProduct);
+    }
+
+    $scope.btnTesterSelected = function(selectedTester) {
+        $scope.selectedTesterName = selectedTester.testerName;
+        $scope.showTestMatrix = true;
+    }
+
+    $scope.showTasks = function(platform, scenario) {
+        var modalId;
+        console.log(scenario);
+        modalId = '#myModal_' + platform.platformId + '_' + scenario.scenarioId;
+        console.log(modalId);
+        $(modalId).modal({show: true});
     }
 
     $scope.taskChecked = function(scenario, task, checked) {
         var taskIndex, totalTasks, checkedTasks;
-
+        scenario.testerName = $scope.selectedTesterName;
         if (task.selected) {
-            scenario.checkedTasks = scenario.checkedTasks - 1;
+            scenario.checkedTasks -= 1;
+            $scope.selectedProduct.checkedTasks -= 1;
+            if (scenario.checkedTasks == 0) {
+                scenario.statusClass = 'info';
+                scenario.statusName = 'Available';
+                scenario.testerName = '';
+            }
+            else {
+                scenario.statusClass = 'danger';
+                scenario.statusName = 'In-Progress';
+            }
         }
         else {
-            scenario.checkedTasks = scenario.checkedTasks + 1;
+            scenario.checkedTasks += 1;
+            $scope.selectedProduct.checkedTasks += 1;
+            if (scenario.checkedTasks == scenario.totalTasks) {
+                scenario.statusClass = 'success';
+                scenario.statusName = 'Complete';
+            }
+            else {
+                scenario.statusClass = 'danger';
+                scenario.statusName = 'In-Progress';
+            }
         }
         //$('#myProgress' + scenario.id).width(100*scenario.checkedTasks/scenario.totalTasks);
     }
